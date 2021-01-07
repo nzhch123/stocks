@@ -43,7 +43,7 @@ public class Thread_timing extends Thread {
             }
         }
     }
-
+    //需要编写策略直接在该函数写
     private void strategy() throws Exception {
         Set<String> toSendPrDebt=new HashSet<String>();
         Set<String> toSendFast=new HashSet<>();

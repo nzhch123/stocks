@@ -23,7 +23,7 @@ public class MailUtil {
     public static String sendEmailAccount = "1009803824@qq.com";
     public static String receiveMailAccount = "1009803824@qq.com";
     //填写自己邮箱账号的授权码
-    public static String sendEmailPwd = "****";
+    public static String sendEmailPwd = "qlakvrgtpwkgbbeg";
 
 //发件人邮箱服务器地址
 
