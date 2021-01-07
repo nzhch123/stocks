@@ -27,7 +27,8 @@ public class Thread_timing extends Thread {
             Calendar date = Calendar.getInstance();
             int hour = date.get(Calendar.HOUR_OF_DAY);
             int minute=date.get(Calendar.MINUTE);
-            boolean flag = (hour == 9 && minute > 30) || (hour < 15 && hour > 9);
+            int week=date.get(Calendar.DAY_OF_WEEK)-1;
+            boolean flag = (week>0&&week<6)&&((hour == 9 && minute > 30) || (hour < 15 && hour > 9));
             if (flag){
                 debtsList= GetPostMessage.getDebts();
                 try {
