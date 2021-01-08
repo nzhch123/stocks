@@ -1,4 +1,4 @@
-package pojo;
+package com.invest.pojo;
 
 public class Debts {
     private String bondId;

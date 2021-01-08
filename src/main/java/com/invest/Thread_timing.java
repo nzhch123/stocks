@@ -1,13 +1,13 @@
+package com.invest;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
-
-
 import org.apache.log4j.Logger;
-import pojo.Debts;
-import utils.GetPostMessage;
-import utils.MailUtil;
+import com.invest.pojo.Debts;
+import com.invest.utils.GetPostMessage;
+import com.invest.utils.MailUtil;
 
 public class Thread_timing extends Thread {
     //存储发送过的正股涨幅过快的转债和时间，避免两天内重复发送邮件
@@ -20,72 +20,74 @@ public class Thread_timing extends Thread {
     private List<Debts> debtsList;
 
 
-
-    public void run(){
+    public void run() {
         logger.info("定时线程已启动");
-        while(true){
+        while (true) {
             Calendar date = Calendar.getInstance();
             int hour = date.get(Calendar.HOUR_OF_DAY);
-            int minute=date.get(Calendar.MINUTE);
-            int week=date.get(Calendar.DAY_OF_WEEK)-1;
-            boolean flag = (week>0&&week<6)&&((hour == 9 && minute > 30) || (hour < 15 && hour > 9));
-            if (flag){
-                debtsList= GetPostMessage.getDebts();
+            int minute = date.get(Calendar.MINUTE);
+            int week = date.get(Calendar.DAY_OF_WEEK) - 1;
+            boolean flag = (week > 0 && week < 6) && ((hour == 9 && minute > 30) || (hour < 15 && hour > 9));
+            if (flag) {
+                debtsList = GetPostMessage.getDebts();
                 try {
                     strategy();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-            try {
-                Thread.sleep(30000);//每隔半分钟检测一次
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                try {
+                    Thread.sleep(30000);//每隔半分钟检测一次
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
+
     //需要编写策略直接在该函数写
     private void strategy() throws Exception {
-        Set<String> toSendPrDebt=new HashSet<String>();
-        Set<String> toSendFast=new HashSet<>();
+        Set<String> toSendPrDebt = new HashSet<String>();
+        Set<String> toSendFast = new HashSet<>();
         for (Debts debt :
                 debtsList) {
-            Float debtIncrease=StringtoFloat(debt.getIncreaseRt()) ;
-            Float stockIncrease=StringtoFloat(debt.getSincreaseRt()) ;
-            Float premiumRate=StringtoFloat(debt.getPremiumRt()) ;
+            Float debtIncrease = StringtoFloat(debt.getIncreaseRt());
+            Float stockIncrease = StringtoFloat(debt.getSincreaseRt());
+            Float premiumRate = StringtoFloat(debt.getPremiumRt());
             //溢价率低于百分之十了会进行通知
             if (premiumRate < -10.0) {
                 if (prRateRecord.containsKey(debt.getBondId())) {
-                    if (getDayDiffer(new Date(),prRateRecord.get(debt.getBondId()))>=7){
-                        prRateRecord.put(debt.getBondId(),new Date());
+                    if (getDayDiffer(new Date(), prRateRecord.get(debt.getBondId())) >= 7) {
+                        prRateRecord.put(debt.getBondId(), new Date());
                         toSendPrDebt.add(debt.getBondNm());
                     }
                 }
             }
             //正股长得过快，转债没有跟上会发邮件进行通知
             if (fastCrease.containsKey(debt.getBondId())) {
-                if (getDayDiffer(new Date(),prRateRecord.get(debt.getBondId()))>=3) {
+                if (getDayDiffer(new Date(), prRateRecord.get(debt.getBondId())) >= 3) {
                     if (stockIncrease > 5.0 && (stockIncrease - debtIncrease > 3.0)) {
-                        fastCrease.put(debt.getBondId(),new Date());
+                        fastCrease.put(debt.getBondId(), new Date());
                         toSendFast.add(debt.getBondNm());
                     }
                 }
             }
         }
-        if (toSendPrDebt.size()!=0){
-            String toSendPrDebtStr=toSendPrDebt.stream().collect(Collectors.joining(" \n ", "", ""));
-            MailUtil.sendMessage("溢价率低于百分之十了",toSendPrDebtStr+"溢价率低于百分之十了");
+        if (toSendPrDebt.size() != 0) {
+            String toSendPrDebtStr = toSendPrDebt.stream().collect(Collectors.joining(" \n ", "", ""));
+            MailUtil.sendMessage("溢价率低于百分之十了", toSendPrDebtStr + "溢价率低于百分之十了");
         }
-        if (toSendFast.size()!=0){
-            String toSendFastStr=toSendFast.stream().collect(Collectors.joining(" \n ", "", ""));
-            MailUtil.sendMessage("正股上涨过快",toSendFastStr+"溢价率低于百分之十了");
+        if (toSendFast.size() != 0) {
+            String toSendFastStr = toSendFast.stream().collect(Collectors.joining(" \n ", "", ""));
+            MailUtil.sendMessage("正股上涨过快", toSendFastStr + "溢价率低于百分之十了");
         }
     }
-    private Float StringtoFloat(String s){
-        int l=s.length();
-        Float n=Float.parseFloat(s.substring(0,l-1));
+
+    private Float StringtoFloat(String s) {
+        int l = s.length();
+        Float n = Float.parseFloat(s.substring(0, l - 1));
         return n;
     }
+
     private int getDayDiffer(Date startDate, Date endDate) throws ParseException {
         //判断是否跨年
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");

@@ -1,4 +1,4 @@
-package utils;
+package com.invest.utils;
 
 import javax.mail.Session;
 import javax.mail.Transport;
