@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.invest.pojo.Debts;
-import com.invest.utils.GetPostMessage;
+import com.invest.utils.GetMessage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +15,7 @@ public class GetDebtData implements GetData<List<Debts>>{
     @Override
     public List<Debts> getData() {
         Map<String, String> mapParam = new HashMap<String, String>();
-        String result = GetPostMessage.sendPost(url, mapParam);
+        String result = GetMessage.sendPost(url, mapParam);
         JSONObject jb = JSONObject.parseObject(result);
         JSONArray jsonArray = jb.getJSONArray("rows");
         List<Debts> debtsList=new ArrayList<Debts>();

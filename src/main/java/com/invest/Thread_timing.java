@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import com.invest.pojo.Debts;
-import com.invest.utils.GetPostMessage;
+import com.invest.utils.GetMessage;
 import com.invest.utils.MailUtil;
 
 public class Thread_timing extends Thread {
@@ -29,7 +29,7 @@ public class Thread_timing extends Thread {
             int week = date.get(Calendar.DAY_OF_WEEK) - 1;
             boolean flag = (week > 0 && week < 6) && ((hour == 9 && minute > 30) || (hour < 15 && hour > 9));
             if (flag) {
-                debtsList = GetPostMessage.getDebts();
+                debtsList = GetMessage.getDebts();
                 try {
                     strategy();
                 } catch (Exception e) {

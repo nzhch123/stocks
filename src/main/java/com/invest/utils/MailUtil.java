@@ -1,13 +1,17 @@
 package com.invest.utils;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
+
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
-
-
+@Component
+@PropertySource({"classpath:config.properties"})
 public class MailUtil {
 //sendEmailAccount:发件人邮箱
 
@@ -19,17 +23,21 @@ public class MailUtil {
 // 对于开启了独立密码的邮箱, 这里的邮箱密码必需使用这个独立密码（授权码）。
 
     //打开邮箱-->上方找到设置 -->账户 -->找到（POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务）-->开启pop3 -->获得授权码；
-
-    public static String sendEmailAccount = "1009803824@qq.com";
-    public static String receiveMailAccount = "1009803824@qq.com";
-    //填写自己邮箱账号的授权码
+    @Value("${sendEmailAccount}")
+    private static String sendEmailAccount;
+    @Value("${receiveMailAccount}")
+    public static String receiveMailAccount;
+    @Value("${sendEmailPwd}")
     public static String sendEmailPwd = "qlakvrgtpwkgbbeg";
 
 //发件人邮箱服务器地址
-
+    @Value("${emailProtocolType}")
     public static String emailProtocolType = "smtp";
+    @Value("${sendEmailSMTPHost}")
     public static String sendEmailSMTPHost = "smtp.qq.com";
+    @Value("${smtpPort}")
     public static String smtpPort = "465";
+    @Value("${sslSocketFactory}")
     public static String sslSocketFactory = "javax.net.ssl.SSLSocketFactory";
 
     public static String prt;
