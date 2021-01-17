@@ -1,9 +1,10 @@
 package com.invest.strategy;
 
-import org.quartz.Job;
-import org.springframework.stereotype.Component;
+import com.invest.pojo.Mail;
 
 public interface Strategy  {
 
-    public void sendEmail();
+    public void analyzeStrategy();
+
+    public Mail sendMessage();
 }
