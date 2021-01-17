@@ -1,5 +1,5 @@
 package com.invest.getdata;
 
-public interface GetData<T> {
+public interface Data<T> {
     public T getData();
 }

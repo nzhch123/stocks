@@ -11,8 +11,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
 
-public class GetMessage {
-    public static final String url="https://www.jisilu.cn/data/cbnew/cb_list/";
+public class HttpRequest {
+    public static final String url = "https://www.jisilu.cn/data/cbnew/cb_list/";
+
     public static String sendPost(String url, Map<String, String> paramMap) {
         PrintWriter out = null;
         BufferedReader in = null;
@@ -24,7 +25,7 @@ public class GetMessage {
             // 设置通用的请求属性
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
-            conn.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             // conn.setRequestProperty("Charset", "UTF-8");
             // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
@@ -77,11 +78,12 @@ public class GetMessage {
 
     /**
      * 数据流post请求
+     *
      * @param urlStr
      * @param
      */
     public String doPost(String urlStr, String strInfo) {
-        String reStr="";
+        String reStr = "";
         try {
             URL url = new URL(urlStr);
             URLConnection con = url.openConnection();
@@ -105,6 +107,7 @@ public class GetMessage {
         }
         return reStr;
     }
+
     public static String sendGet(String url, String param) {
         String result = "";
         BufferedReader in = null;
@@ -153,19 +156,20 @@ public class GetMessage {
 
     /**
      * 测试主方法
+     *
      * @param
      */
 
-    public static List<Debts> getDebts(){
+    public static List<Debts> getDebts() {
         Map<String, String> mapParam = new HashMap<String, String>();
         String pathUrl = url;
         String result = sendPost(pathUrl, mapParam);
         JSONObject jb = JSONObject.parseObject(result);
         JSONArray jsonArray = jb.getJSONArray("rows");
-        List<Debts> debtsList=new ArrayList<Debts>();
-        for (int i = 0; i <jsonArray.size() ; i++) {
-            JSONObject jsonObject=(JSONObject)jsonArray.getJSONObject(i).get("cell");
-            Debts debt = JSON.toJavaObject(jsonObject,Debts.class);
+        List<Debts> debtsList = new ArrayList<Debts>();
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONObject jsonObject = (JSONObject) jsonArray.getJSONObject(i).get("cell");
+            Debts debt = JSON.toJavaObject(jsonObject, Debts.class);
             debtsList.add(debt);
         }
         return debtsList;
