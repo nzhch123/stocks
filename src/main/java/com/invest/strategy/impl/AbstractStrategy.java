@@ -45,6 +45,10 @@ public abstract class AbstractStrategy implements Strategy {
         return n;
     }
 
+    public void setContext() {
+
+    }
+
     protected static final int getDayDiffer(Date startDate, Date endDate) throws ParseException {
         //判断是否跨年
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
