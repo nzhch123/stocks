@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
-import com.invest.pojo.Debts;
+import com.invest.pojo.Debt;
 import com.invest.utils.HttpRequest;
 import com.invest.utils.MailUtil;
 
@@ -17,7 +17,7 @@ public class Thread_timing extends Thread {
 
     static Logger logger = Logger.getLogger(Thread_timing.class);
 
-    private List<Debts> debtsList;
+    private List<Debt> debtList;
 
 
     public void run() {
@@ -29,7 +29,7 @@ public class Thread_timing extends Thread {
             int week = date.get(Calendar.DAY_OF_WEEK) - 1;
             boolean flag = (week > 0 && week < 6) && ((hour == 9 && minute > 30) || (hour < 15 && hour > 9));
             if (flag) {
-                debtsList = HttpRequest.getDebts();
+                debtList = HttpRequest.getDebts();
                 try {
                     strategy();
                 } catch (Exception e) {
@@ -48,8 +48,8 @@ public class Thread_timing extends Thread {
     private void strategy() throws Exception {
         Set<String> toSendPrDebt = new HashSet<String>();
         Set<String> toSendFast = new HashSet<>();
-        for (Debts debt :
-                debtsList) {
+        for (Debt debt :
+                debtList) {
             Float debtIncrease = StringtoFloat(debt.getIncreaseRt());
             Float stockIncrease = StringtoFloat(debt.getSincreaseRt());
             Float premiumRate = StringtoFloat(debt.getPremiumRt());

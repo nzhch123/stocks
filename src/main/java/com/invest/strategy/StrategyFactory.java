@@ -26,6 +26,7 @@ public class StrategyFactory {
 
                 Strategy strategy=maps.get(key);
                 strategy.analyzeStrategy();
+
                 Mail mail=strategy.sendMessage();
                 MailUtil.sendMessage(mail.subject,mail.content);
             }

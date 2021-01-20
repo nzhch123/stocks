@@ -3,7 +3,7 @@ package com.invest.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.invest.pojo.Debts;
+import com.invest.pojo.Debt;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -160,18 +160,18 @@ public class HttpRequest {
      * @param
      */
 
-    public static List<Debts> getDebts() {
+    public static List<Debt> getDebts() {
         Map<String, String> mapParam = new HashMap<String, String>();
         String pathUrl = url;
         String result = sendPost(pathUrl, mapParam);
         JSONObject jb = JSONObject.parseObject(result);
         JSONArray jsonArray = jb.getJSONArray("rows");
-        List<Debts> debtsList = new ArrayList<Debts>();
+        List<Debt> debtList = new ArrayList<Debt>();
         for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject jsonObject = (JSONObject) jsonArray.getJSONObject(i).get("cell");
-            Debts debt = JSON.toJavaObject(jsonObject, Debts.class);
-            debtsList.add(debt);
+            Debt debt = JSON.toJavaObject(jsonObject, Debt.class);
+            debtList.add(debt);
         }
-        return debtsList;
+        return debtList;
     }
 }

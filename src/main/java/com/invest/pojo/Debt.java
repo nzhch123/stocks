@@ -1,6 +1,6 @@
 package com.invest.pojo;
 
-public class Debts {
+public class Debt {
     private String bondId;
 
     private String bondNm;

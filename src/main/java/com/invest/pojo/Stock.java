@@ -1,6 +1,6 @@
 package com.invest.pojo;
 import org.codehaus.jackson.annotate.JsonProperty;
-public class Stocks {
+public class Stock {
     private String symbol;
     @JsonProperty("net_profit_cagr")
     private double netProfitCagr;

@@ -6,11 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Main {
     public static void main(String[] args) {
-        SpringApplication springApplication = new SpringApplication(Main.class);
+        //SpringApplication springApplication = new SpringApplication(Main.class);
+        SpringApplication.run(Main.class, args);
 //        springApplication.addListeners(new FeiquListener());
 //        SpringApplication.run(FeiQuApplication.class, args);
-        springApplication.run(args);
-        Thread_timing thr=new Thread_timing();
-        thr.start();
+//        springApplication.run(args);
+//        Thread_timing thr=new Thread_timing();
+//        thr.start();
     }
 }
