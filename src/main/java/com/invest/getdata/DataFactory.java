@@ -1,5 +1,8 @@
 package com.invest.getdata;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class DataFactory {
     public Data getData(String data) {
         if (data == null) {

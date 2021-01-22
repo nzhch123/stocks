@@ -6,8 +6,7 @@ public interface Strategy  {
 
      void setContext();
 
-     void analyzeStrategy();
+     boolean analyzeStrategy();
 
-     Mail sendMessage();
 
 }

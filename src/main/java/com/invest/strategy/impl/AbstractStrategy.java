@@ -9,12 +9,18 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public abstract class AbstractStrategy implements Strategy {
     //要发送的邮件
     protected Mail mail;
+
+    public Set<String> getToSendSubject() {
+        return toSendSubject;
+    }
+
     //要发送邮件内容的标的
-    protected Set<Object> toSendSubject;
+    protected Set<String> toSendSubject;
     //邮件重复时间
     protected Integer inpireMailDays;
 
@@ -22,31 +28,35 @@ public abstract class AbstractStrategy implements Strategy {
         return mail;
     }
 
-    protected void setMail(Mail mail) {
-        this.mail = mail;
-    }
+    abstract protected void setMail();
+
     protected void setToSendSubject(Object data) {
         this.toSendSubject.add(data);
     }
 
-    protected void setInpireMailDays(Integer inpireMailDays) {
-        this.inpireMailDays = inpireMailDays;
+    protected void setInpireMailDays() {
+        this.inpireMailDays=3;
     }
 
-    @Override
-    abstract public void analyzeStrategy();
 
     @Override
-    abstract public Mail sendMessage();
+    public void setContext() {
+        if (analyzeStrategy()) {
+            setInpireMailDays();
+            setMail();
+            String subject=getToSendSubject().stream().collect(Collectors.joining("/n", "/n", "/n"))
+            mail.getContent()+"/n"+getToSendSubject();
+            getToSendSubject
+        }
+    }
+
+
+
 
     protected static final Float StringtoFloat(String s) {
         int l = s.length();
         Float n = Float.parseFloat(s.substring(0, l - 1));
         return n;
-    }
-
-    public void setContext() {
-
     }
 
     protected static final int getDayDiffer(Date startDate, Date endDate) throws ParseException {
