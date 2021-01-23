@@ -1,6 +1,5 @@
 package com.invest.strategy.impl;
 
-import com.invest.getdata.Data;
 import com.invest.pojo.Mail;
 import com.invest.strategy.Strategy;
 
@@ -31,7 +30,7 @@ public abstract class AbstractStrategy implements Strategy {
     abstract protected void setMail();
 
     protected void setToSendSubject(Object data) {
-        this.toSendSubject.add(data);
+        this.toSendSubject.add((String) data);
     }
 
     protected void setInpireMailDays() {
@@ -44,9 +43,9 @@ public abstract class AbstractStrategy implements Strategy {
         if (analyzeStrategy()) {
             setInpireMailDays();
             setMail();
-            String subject=getToSendSubject().stream().collect(Collectors.joining("/n", "/n", "/n"))
-            mail.getContent()+"/n"+getToSendSubject();
-            getToSendSubject
+            String subject = getToSendSubject().stream().collect(Collectors.joining("/n", "/n", "/n"));
+            String content= mail.getContent()+"/n"+subject;
+            mail.setContent(content);
         }
     }
 
