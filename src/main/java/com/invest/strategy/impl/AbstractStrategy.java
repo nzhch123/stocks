@@ -1,6 +1,5 @@
 package com.invest.strategy.impl;
 
-import com.invest.getdata.Data;
 import com.invest.pojo.Mail;
 import com.invest.strategy.Strategy;
 
@@ -8,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,14 +15,26 @@ public abstract class AbstractStrategy implements Strategy {
     //要发送的邮件
     protected Mail mail;
 
-    public Set<String> getToSendSubject() {
-        return toSendSubject;
-    }
-
     //要发送邮件内容的标的
-    protected Set<String> toSendSubject;
+    protected Set<String> toSendTarget;
     //邮件重复时间
     protected Integer inpireMailDays;
+
+    public static Map<String, Date> getSendTargetRecord() {
+        return sendTargetRecord;
+    }
+
+    public static void setSendTargetRecord(Map<String, Date> sendTargetRecord) {
+        AbstractStrategy.sendTargetRecord = sendTargetRecord;
+    }
+
+    //记录发送标的上次发送的时间
+    private static Map<String,Date> sendTargetRecord;
+
+
+    public Set<String> getToSendTarget() {
+        return toSendTarget;
+    }
 
     public Mail getMail() {
         return mail;
@@ -30,27 +42,13 @@ public abstract class AbstractStrategy implements Strategy {
 
     abstract protected void setMail();
 
-    protected void setToSendSubject(Object data) {
-        this.toSendSubject.add(data);
+    protected void setToSendTarget(String data) {
+        this.toSendTarget.add(data);
     }
 
     protected void setInpireMailDays() {
-        this.inpireMailDays=3;
+        this.inpireMailDays = 3;
     }
-
-
-    @Override
-    public void setContext() {
-        if (analyzeStrategy()) {
-            setInpireMailDays();
-            setMail();
-            String subject=getToSendSubject().stream().collect(Collectors.joining("/n", "/n", "/n"))
-            mail.getContent()+"/n"+getToSendSubject();
-            getToSendSubject
-        }
-    }
-
-
 
 
     protected static final Float StringtoFloat(String s) {
@@ -58,6 +56,20 @@ public abstract class AbstractStrategy implements Strategy {
         Float n = Float.parseFloat(s.substring(0, l - 1));
         return n;
     }
+
+    @Override
+    public void setContext() {
+        if (analyzeStrategy()) {
+            setInpireMailDays();
+            setMail();
+            String toSendTarget = getToSendTarget().stream().collect(Collectors.joining("/n", "/n", "/n"));
+            String content = mail.getContent() + "/n" + toSendTarget;
+            mail.setContent(content);
+
+
+        }
+    }
+
 
     protected static final int getDayDiffer(Date startDate, Date endDate) throws ParseException {
         //判断是否跨年

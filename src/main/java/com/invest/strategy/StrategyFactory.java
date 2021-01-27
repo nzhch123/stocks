@@ -1,6 +1,7 @@
 package com.invest.strategy;
 
 import com.invest.pojo.Mail;
+import com.invest.strategy.impl.AbstractStrategy;
 import com.invest.utils.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,18 +18,17 @@ public class StrategyFactory {
     ApplicationContext applicationContext;
     @Autowired
     @Qualifier("GetStrategy")
-    Map<String, Strategy> maps;
+    Map<String, AbstractStrategy> maps;
 
     public void executeStrategy() throws Exception {
         if (!CollectionUtils.isEmpty(maps)) {
             for (String key :
                     maps.keySet()) {
-
-                Strategy strategy=maps.get(key);
-                strategy.analyzeStrategy();
-
-                Mail mail=strategy.sendMessage();
-                MailUtil.sendMessage(mail.subject,mail.content);
+                AbstractStrategy strategy = null;
+                strategy = maps.get(key);
+                strategy.setContext();
+                Mail mail=strategy.getMail();
+                MailUtil.sendMessage(mail.subject, mail.content);
             }
         }
     }

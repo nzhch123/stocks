@@ -23,7 +23,6 @@ public class RapidRise extends AbstractStrategy{
 
     @Override
     protected void setMail() {
-        Mail mail=new Mail();
         mail.setSubject("转债正股快速上涨");
         mail.setContent("债正股快速上涨，转债涨幅没有跟上的时候，快速进行买入");
 
@@ -38,7 +37,7 @@ public class RapidRise extends AbstractStrategy{
             Float stockIncrease = StringtoFloat(debt.getSincreaseRt());
             Float debtIncrease = StringtoFloat(debt.getIncreaseRt());
             if (stockIncrease > 5.0 && (stockIncrease - debtIncrease > 3.0)) {
-                this.setToSendSubject(debt.getBondNm());
+                this.setToSendTarget(debt.getBondNm());
                 flag=true;
             }
         }

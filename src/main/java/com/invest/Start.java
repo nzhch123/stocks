@@ -13,6 +13,7 @@ public class Start implements CommandLineRunner {
 //        ScheduledExecutorService ses = Executors.newScheduledThreadPool(4);
 //        ses.scheduleAtFixedRate(new Thread_timing(), 0, 30, TimeUnit.SECONDS);
 
-        QuartzManager.startJobs();
+
+       // QuartzManager.startJobs();
     }
 }
