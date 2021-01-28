@@ -19,22 +19,19 @@ public abstract class AbstractStrategy implements Strategy {
     protected Set<String> toSendTarget;
     //邮件重复时间
     protected Integer inpireMailDays;
+    //记录发送标的上次发送的时间
+
+    protected static Map<String,Date> sendTargetRecord;
 
     public static Map<String, Date> getSendTargetRecord() {
         return sendTargetRecord;
     }
 
-    public static void setSendTargetRecord(Map<String, Date> sendTargetRecord) {
-        AbstractStrategy.sendTargetRecord = sendTargetRecord;
+    public void setSendTargetRecord(Map<String, Date> sendTargetRecord) {
+        this.sendTargetRecord = sendTargetRecord;
     }
 
-    //记录发送标的上次发送的时间
-    private static Map<String,Date> sendTargetRecord;
 
-
-    public Set<String> getToSendTarget() {
-        return toSendTarget;
-    }
 
     public Mail getMail() {
         return mail;
@@ -42,12 +39,16 @@ public abstract class AbstractStrategy implements Strategy {
 
     abstract protected void setMail();
 
+    public Set<String> getToSendTarget() {
+        return toSendTarget;
+    }
+
     protected void setToSendTarget(String data) {
         this.toSendTarget.add(data);
     }
 
-    protected void setInpireMailDays() {
-        this.inpireMailDays = 3;
+    protected void setInpireMailDays(Integer inpireMailDays) {
+        this.inpireMailDays = inpireMailDays;
     }
 
 
@@ -60,7 +61,6 @@ public abstract class AbstractStrategy implements Strategy {
     @Override
     public void setContext() {
         if (analyzeStrategy()) {
-            setInpireMailDays();
             setMail();
             String toSendTarget = getToSendTarget().stream().collect(Collectors.joining("/n", "/n", "/n"));
             String content = mail.getContent() + "/n" + toSendTarget;

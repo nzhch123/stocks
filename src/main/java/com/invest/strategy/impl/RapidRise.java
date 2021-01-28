@@ -17,11 +17,6 @@ public class RapidRise extends AbstractStrategy{
     DataFactory dataFactory;
 
     @Override
-    protected void setInpireMailDays() {
-        this.inpireMailDays=3;
-    }
-
-    @Override
     protected void setMail() {
         mail.setSubject("转债正股快速上涨");
         mail.setContent("债正股快速上涨，转债涨幅没有跟上的时候，快速进行买入");
@@ -31,6 +26,7 @@ public class RapidRise extends AbstractStrategy{
     public boolean analyzeStrategy() {
         Boolean flag=false;
         Data debtData=dataFactory.getData("debt");
+        this.setInpireMailDays(5);
         List<Debt> debtList= (List<Debt>) debtData.getData();
         for (Debt debt :
                 debtList) {
