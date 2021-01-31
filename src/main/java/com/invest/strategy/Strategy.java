@@ -2,11 +2,13 @@ package com.invest.strategy;
 
 import com.invest.pojo.Mail;
 
+import java.text.ParseException;
+
 public interface Strategy  {
 
-     void setContext();
+     void setContext() throws ParseException;
 
-     boolean analyzeStrategy();
+     boolean analyzeStrategy() throws ParseException;
 
 
 }

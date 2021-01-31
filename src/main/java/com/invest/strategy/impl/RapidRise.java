@@ -7,6 +7,7 @@ import com.invest.pojo.Mail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class RapidRise extends AbstractStrategy{
 
     }
     @Override
-    public boolean analyzeStrategy() {
+    public boolean analyzeStrategy() throws ParseException {
         Boolean flag=false;
         Data debtData=dataFactory.getData("debt");
         this.setInpireMailDays(5);

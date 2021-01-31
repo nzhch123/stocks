@@ -5,10 +5,7 @@ import com.invest.strategy.Strategy;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class AbstractStrategy implements Strategy {
@@ -21,17 +18,7 @@ public abstract class AbstractStrategy implements Strategy {
     protected Integer inpireMailDays;
     //记录发送标的上次发送的时间
 
-    protected static Map<String,Date> sendTargetRecord;
-
-    public static Map<String, Date> getSendTargetRecord() {
-        return sendTargetRecord;
-    }
-
-    public void setSendTargetRecord(Map<String, Date> sendTargetRecord) {
-        this.sendTargetRecord = sendTargetRecord;
-    }
-
-
+    protected Map<String, Date> sendTargetRecord;
 
     public Mail getMail() {
         return mail;
@@ -43,8 +30,15 @@ public abstract class AbstractStrategy implements Strategy {
         return toSendTarget;
     }
 
-    protected void setToSendTarget(String data) {
-        this.toSendTarget.add(data);
+    protected void setToSendTarget(String data) throws ParseException {
+        if (sendTargetRecord.containsKey(data)) {
+            if (getDayDiffer(new Date(), sendTargetRecord.get(data)) > inpireMailDays) {
+                sendTargetRecord.put(data,new Date());
+                this.toSendTarget.add(data);
+            }
+        }
+
+
     }
 
     protected void setInpireMailDays(Integer inpireMailDays) {
@@ -59,8 +53,9 @@ public abstract class AbstractStrategy implements Strategy {
     }
 
     @Override
-    public void setContext() {
+    public void setContext() throws ParseException {
         if (analyzeStrategy()) {
+            toSendTarget=new HashSet<>();
             setMail();
             String toSendTarget = getToSendTarget().stream().collect(Collectors.joining("/n", "/n", "/n"));
             String content = mail.getContent() + "/n" + toSendTarget;
