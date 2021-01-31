@@ -2,7 +2,7 @@ package com.invest.strategy.impl;
 
 import com.invest.pojo.Mail;
 import com.invest.strategy.Strategy;
-
+import com.invest.strategy.MailedRecord;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -16,9 +16,7 @@ public abstract class AbstractStrategy implements Strategy {
     protected Set<String> toSendTarget;
     //邮件重复时间
     protected Integer inpireMailDays;
-    //记录发送标的上次发送的时间
 
-    protected Map<String, Date> sendTargetRecord;
 
     public Mail getMail() {
         return mail;
@@ -31,9 +29,10 @@ public abstract class AbstractStrategy implements Strategy {
     }
 
     protected void setToSendTarget(String data) throws ParseException {
-        if (sendTargetRecord.containsKey(data)) {
-            if (getDayDiffer(new Date(), sendTargetRecord.get(data)) > inpireMailDays) {
-                sendTargetRecord.put(data,new Date());
+        Map<String, Date> mapRecord=MailedRecord.classMap.get(this.getClass());
+        if (mapRecord.containsKey(data)) {
+            if (getDayDiffer(new Date(), mapRecord.get(data)) > inpireMailDays) {
+                mapRecord.put(data,new Date());
                 this.toSendTarget.add(data);
             }
         }

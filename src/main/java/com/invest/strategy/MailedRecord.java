@@ -19,14 +19,17 @@ public class MailedRecord implements ApplicationContextAware {
     @Autowired
     @Qualifier("GetStrategy")
     Map<String, AbstractStrategy> maps;
-    public static Map<AbstractStrategy, Map<String, Date>> classMap;
+    public static Map<Class<? extends AbstractStrategy>, Map<String, Date>> classMap;
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         if (!CollectionUtils.isEmpty(maps)) {
             for (String key :
                     maps.keySet()) {
                 Map<String, Date> map = new HashMap<>();
-                classMap.put(maps.get(key),map);
+                AbstractStrategy strategy = null;
+                strategy = maps.get(key);
+                classMap.put(strategy.getClass(), map);
+
             }
         }
     }
