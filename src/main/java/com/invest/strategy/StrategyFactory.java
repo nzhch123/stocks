@@ -24,7 +24,7 @@ public class StrategyFactory {
         if (!CollectionUtils.isEmpty(maps)) {
             for (String key :
                     maps.keySet()) {
-                AbstractStrategy strategy = null;
+                AbstractStrategy strategy;
                 strategy = maps.get(key);
                 strategy.setContext();
                 Mail mail=strategy.getMail();
