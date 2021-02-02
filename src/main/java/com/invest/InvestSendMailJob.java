@@ -7,7 +7,7 @@ import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-public class MyJob implements Job {
+public class InvestSendMailJob implements Job {
     @Autowired
     StrategyFactory strategyFactory;
     @lombok.SneakyThrows

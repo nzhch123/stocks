@@ -1,8 +1,8 @@
 package com.invest.pojo;
 
 public class Mail {
-    public String subject;
-    public String content;
+    private String subject;
+    private String content;
 
     public String getSubject() {
         return subject;
