@@ -1,8 +1,6 @@
 package com.invest.strategy;
 
-import com.invest.pojo.Mail;
 import com.invest.strategy.impl.AbstractStrategy;
-import com.invest.utils.MailUtil;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,7 +10,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class MailedRecord implements ApplicationContextAware {
@@ -21,6 +18,7 @@ public class MailedRecord implements ApplicationContextAware {
     Map<String, AbstractStrategy> maps;
     public static Map<Class<? extends AbstractStrategy>, Map<String, Date>> classMap;
 
+    @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         if (!CollectionUtils.isEmpty(maps)) {
             for (String key :

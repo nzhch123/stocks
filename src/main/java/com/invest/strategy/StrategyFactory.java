@@ -26,9 +26,10 @@ public class StrategyFactory {
                     maps.keySet()) {
                 AbstractStrategy strategy;
                 strategy = maps.get(key);
-                strategy.setContext();
-                Mail mail=strategy.getMail();
-                MailUtil.sendMessage(mail.getSubject(), mail.getContent());
+                if (strategy.setContext()) {
+                    Mail mail=strategy.getMail();
+                    MailUtil.sendMessage(mail.getSubject(), mail.getContent());
+                }
             }
         }
     }

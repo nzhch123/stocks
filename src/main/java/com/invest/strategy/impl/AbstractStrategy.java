@@ -52,16 +52,17 @@ public abstract class AbstractStrategy implements Strategy {
     }
 
     @Override
-    public void setContext() throws ParseException {
+    public boolean setContext() throws ParseException {
         if (analyzeStrategy()) {
             toSendTarget=new HashSet<>();
             setMail();
             String toSendTarget = getToSendTarget().stream().collect(Collectors.joining("/n", "/n", "/n"));
             String content = mail.getContent() + "/n" + toSendTarget;
             mail.setContent(content);
-
+            return true;
 
         }
+        return false;
     }
 
 
