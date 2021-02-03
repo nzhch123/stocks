@@ -38,8 +38,8 @@ public abstract class AbstractStrategy implements Strategy {
 
     }
 
-    protected void setInpireMailDays(Integer inpireMailDays) {
-        this.inpireMailDays = inpireMailDays;
+    protected void setInpireMailDays() {
+        this.inpireMailDays = 5;
     }
 
 
