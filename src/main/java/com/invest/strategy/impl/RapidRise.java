@@ -29,6 +29,7 @@ public class RapidRise extends AbstractStrategy{
     @Override
     public boolean analyzeStrategy() throws ParseException {
         Boolean flag=false;
+        //getData 可以是 "debt"  或者 "stock"  有新的数据源可以在工厂类里添加
         Data debtData=dataFactory.getData("debt");
         List<Debt> debtList= (List<Debt>) debtData.getData();
         for (Debt debt :
