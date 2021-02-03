@@ -11,12 +11,10 @@ import java.util.stream.Collectors;
 public abstract class AbstractStrategy implements Strategy {
     //要发送的邮件
     protected Mail mail;
-
     //要发送邮件内容的标的
     protected Set<String> toSendTarget;
-    //邮件重复时间
+    //相同标的的邮件间隔时间,防止之前发过邮件了，短时间重复发送
     protected Integer inpireMailDays;
-
 
     public Mail getMail() {
         return mail;
