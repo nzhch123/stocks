@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.util.List;
-
+//编写参照例子
 //该策略为转债正股快速上涨，转债涨幅没有跟上的时候，快速进行买入
 @Component
 public class RapidRise extends AbstractStrategy{
