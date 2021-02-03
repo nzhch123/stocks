@@ -2,6 +2,6 @@
 
 ## 编写策略在Strategy包下面继承AbstractStrategy类
 
-## 在config.properties里面填写发送邮箱的账号和授权码还有接收邮箱
+## 在config.properties里面填写发送邮箱的账号和授权码还有接收邮箱还有CRON表达式
 
 ## 编写策略参考 RapidRise类
