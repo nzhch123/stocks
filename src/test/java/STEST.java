@@ -1,35 +1,64 @@
-import com.invest.strategy.Strategy;
-import com.invest.strategy.impl.AbstractStrategy;
+import com.invest.pojo.StockHistoryCsv;
+import com.invest.utils.HttpRequest;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.bean.HeaderColumnNameMappingStrategy;
 import org.junit.Test;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.Map;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class STEST  {
-
-    @Autowired
-    ApplicationContext applicationContext;
-    //@Autowired
-   // @Qualifier("GetStrategy")
-    Map<String, AbstractStrategy> maps;
+public class STEST {
 
     @Test
-    public void test() {
-       // Map<String, Strategy> map=applicationContext.getBeansOfType(Strategy.class);
-        maps=applicationContext.getBeansOfType(AbstractStrategy.class);
-        System.out.println(1);
-        System.out.println(maps.toString());
+    public void test() throws IOException {
+        String tt = HttpRequest.sendGet("http://quotes.money.163.com/service/chddata.html?code=0000001&start=19901219&end=20150911&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;VOTURNOVER;VATURNOVER", null);
+        String url = "http://quotes.money.163.com/service/chddata.html?code=0000001&start=19901219&end=20150911&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;VOTURNOVER;VATURNOVER";
+        HttpHeaders headers = new HttpHeaders();
+        InputStream inputStream = null;
+        RestTemplate restTemplate = new RestTemplate();
+
+        List list = new ArrayList<>();
+        headers.setAccept(list);
+
+        ResponseEntity<byte[]> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                new HttpEntity<byte[]>(headers),
+                byte[].class);
+
+        byte[] result = response.getBody();
+        StockHistoryCsv stockHistoryCsv = null;
+        inputStream = new ByteArrayInputStream(result);
+        Reader reader = null;
+       List<StockHistoryCsv> list1= getCsvData(inputStream, StockHistoryCsv.class);
+
+            if (inputStream != null) {
+                inputStream.close();
+            }
+
+
     }
-    @Test
-    //@Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        maps=applicationContext.getBeansOfType(AbstractStrategy.class);
-        System.out.println(1);
-    }
+
+
+	public <T> List<T> getCsvData(InputStream in, Class<StockHistoryCsv> clazz) throws UnsupportedEncodingException {
+
+
+		HeaderColumnNameMappingStrategy<T> strategy = new HeaderColumnNameMappingStrategy<>();
+		strategy.setType((Class<? extends T>) clazz);
+        Reader reader = new InputStreamReader(in ,"gbk");
+		CsvToBean<T> csvToBean = new CsvToBeanBuilder<T>(reader)
+                .withSeparator(',')
+                .withQuoteChar('\'')
+                .withQuoteChar('\"')
+				.withMappingStrategy(strategy).build();
+		return csvToBean.parse();
+	}
 }

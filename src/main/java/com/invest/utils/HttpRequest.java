@@ -1,18 +1,14 @@
 package com.invest.utils;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.invest.pojo.Debt;
-
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class HttpRequest {
-    public static final String url = "https://www.jisilu.cn/data/cbnew/cb_list/";
 
     public static String sendPost(String url, Map<String, String> paramMap) {
         PrintWriter out = null;
@@ -154,24 +150,4 @@ public class HttpRequest {
     }
 
 
-    /**
-     * 测试主方法
-     *
-     * @param
-     */
-
-    public static List<Debt> getDebts() {
-        Map<String, String> mapParam = new HashMap<String, String>();
-        String pathUrl = url;
-        String result = sendPost(pathUrl, mapParam);
-        JSONObject jb = JSONObject.parseObject(result);
-        JSONArray jsonArray = jb.getJSONArray("rows");
-        List<Debt> debtList = new ArrayList<Debt>();
-        for (int i = 0; i < jsonArray.size(); i++) {
-            JSONObject jsonObject = (JSONObject) jsonArray.getJSONObject(i).get("cell");
-            Debt debt = JSON.toJavaObject(jsonObject, Debt.class);
-            debtList.add(debt);
-        }
-        return debtList;
-    }
 }
