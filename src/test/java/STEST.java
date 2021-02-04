@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -39,7 +40,7 @@ public class STEST {
         inputStream = new ByteArrayInputStream(result);
         Reader reader = null;
        List<StockHistoryCsv> list1= getCsvData(inputStream, StockHistoryCsv.class);
-
+        Collections.reverse(list1);
             if (inputStream != null) {
                 inputStream.close();
             }
