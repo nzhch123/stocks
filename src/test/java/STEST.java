@@ -1,4 +1,4 @@
-import com.invest.pojo.StockHistoryCsv;
+import com.invest.pojo.StockHistory;
 import com.invest.utils.HttpRequest;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -36,10 +36,10 @@ public class STEST {
                 byte[].class);
 
         byte[] result = response.getBody();
-        StockHistoryCsv stockHistoryCsv = null;
+        StockHistory stockHistory = null;
         inputStream = new ByteArrayInputStream(result);
         Reader reader = null;
-       List<StockHistoryCsv> list1= getCsvData(inputStream, StockHistoryCsv.class);
+       List<StockHistory> list1= getCsvData(inputStream, StockHistory.class);
         Collections.reverse(list1);
             if (inputStream != null) {
                 inputStream.close();
@@ -49,7 +49,7 @@ public class STEST {
     }
 
 
-	public <T> List<T> getCsvData(InputStream in, Class<StockHistoryCsv> clazz) throws UnsupportedEncodingException {
+	public <T> List<T> getCsvData(InputStream in, Class<StockHistory> clazz) throws UnsupportedEncodingException {
 
 
 		HeaderColumnNameMappingStrategy<T> strategy = new HeaderColumnNameMappingStrategy<>();

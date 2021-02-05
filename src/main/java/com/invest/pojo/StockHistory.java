@@ -6,7 +6,7 @@ import com.opencsv.bean.CsvBindByName;
  * @author zhichao.ni
  * 2021/2/4
  **/
-public class StockHistoryCsv {
+public class StockHistory {
 	@CsvBindByName(column = "日期")
 	private String date;
 
