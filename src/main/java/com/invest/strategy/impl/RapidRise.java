@@ -1,7 +1,8 @@
 package com.invest.strategy.impl;
 
 import com.invest.getdata.Data;
-import com.invest.getdata.DataFactory;
+import com.invest.getdata.DataRealTimeEnum;
+import com.invest.getdata.DataRealTimeFactory;
 import com.invest.pojo.Debt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,7 +14,7 @@ import java.util.List;
 @Component
 public class RapidRise extends AbstractStrategy{
     @Autowired
-    DataFactory dataFactory;
+    DataRealTimeFactory dataRealTimeFactory;
     //邮件内容，必填
     @Override
     protected void setMail() {
@@ -30,7 +31,7 @@ public class RapidRise extends AbstractStrategy{
     public boolean analyzeStrategy() throws ParseException {
         Boolean flag=false;
         //getData 可以是 "debt"  或者 "stock"  有新的数据源可以在工厂类里添加
-        Data debtData=dataFactory.getData("debt");
+        Data debtData= dataRealTimeFactory.getData(DataRealTimeEnum.DEBT);
         List<Debt> debtList= (List<Debt>) debtData.getData();
         for (Debt debt :
                 debtList) {

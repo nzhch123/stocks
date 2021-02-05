@@ -9,7 +9,7 @@ import com.invest.utils.HttpRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StockData implements Data<List<Stock>> {
+public class StockRealTimeData implements Data<List<Stock>> {
     public static final String url="https://xueqiu.com/service/v5/stock/screener/quote/list?page=1&size=5000&order=desc&orderby=percent&order_by=percent&market=CN&type=sh_sz";
     @Override
     public List<Stock> getData() {

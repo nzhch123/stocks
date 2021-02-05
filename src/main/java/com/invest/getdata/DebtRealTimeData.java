@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DebtData implements Data<List<Debt>> {
+public class DebtRealTimeData implements Data<List<Debt>> {
     public static final String url="https://www.jisilu.cn/data/cbnew/cb_list/";
     @Override
     public List<Debt> getData() {
