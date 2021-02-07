@@ -5,5 +5,5 @@ package com.invest.getdata;
  * 2021/2/5
  **/
 public  enum DataRealTimeEnum {
-	DEBT,STOCK
+	DEBT_REALTIME, STOCK_REALTIME,STOCK_HISTORY
 }

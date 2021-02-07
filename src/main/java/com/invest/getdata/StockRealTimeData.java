@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StockRealTimeData implements Data<List<Stock>> {
-    public static final String url="https://xueqiu.com/service/v5/stock/screener/quote/list?page=1&size=5000&order=desc&orderby=percent&order_by=percent&market=CN&type=sh_sz";
+    final String url="https://xueqiu.com/service/v5/stock/screener/quote/list?page=1&size=5000&order=desc&orderby=percent&order_by=percent&market=CN&type=sh_sz";
     @Override
     public List<Stock> getData() {
         String result = HttpRequest.sendGet(url, null);

@@ -2,9 +2,8 @@ package com.invest.strategy.impl;
 
 import com.invest.getdata.Data;
 import com.invest.getdata.DataRealTimeEnum;
-import com.invest.getdata.DataRealTimeFactory;
+import com.invest.getdata.DataFactory;
 import com.invest.pojo.Debt;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
@@ -13,8 +12,8 @@ import java.util.List;
 //该策略为转债正股快速上涨，转债涨幅没有跟上的时候，快速进行买入
 @Component
 public class RapidRise extends AbstractStrategy{
-    @Autowired
-    DataRealTimeFactory dataRealTimeFactory;
+
+    DataFactory dataFactory = new DataFactory();
     //邮件内容，必填
     @Override
     protected void setMail() {
@@ -31,7 +30,7 @@ public class RapidRise extends AbstractStrategy{
     public boolean analyzeStrategy() throws ParseException {
         Boolean flag=false;
         //getData 可以是 "debt"  或者 "stock"  有新的数据源可以在工厂类里添加
-        Data debtData= dataRealTimeFactory.getData(DataRealTimeEnum.DEBT);
+        Data debtData= dataFactory.getData(DataRealTimeEnum.DEBT_REALTIME);
         List<Debt> debtList= (List<Debt>) debtData.getData();
         for (Debt debt :
                 debtList) {
