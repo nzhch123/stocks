@@ -12,7 +12,9 @@ public class DataFactory {
     String code;
     Date startTime;
     Date endTime;
-    // String url = "http://quotes.money.163.com/service/chddata.html?code=0000001&start=19901219&end=20150911&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;VOTURNOVER;VATURNOVER";
+    public DataFactory() {
+
+    }
     public DataFactory(String code, Date startTime, Date endTime) {
         if (startWithChar(code)) {
             code = code.replaceAll("[a-zA-Z]","" );
@@ -21,11 +23,6 @@ public class DataFactory {
         this.startTime = startTime;
         this.endTime = endTime;
     }
-
-    public DataFactory() {
-
-    }
-
     public Data getData(DataRealTimeEnum data) {
         switch (data) {
             case DEBT_REALTIME:
