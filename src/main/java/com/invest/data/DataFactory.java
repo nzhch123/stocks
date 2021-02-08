@@ -1,8 +1,6 @@
 package com.invest.data;
 
-import com.invest.data.getdata.ConvertibleBondRealTimeData;
-import com.invest.data.getdata.StockHistoryData;
-import com.invest.data.getdata.StockRealTimeData;
+import com.invest.data.getdata.*;
 import com.invest.exception.EnumNotFoundException;
 
 import java.util.Date;
@@ -31,8 +29,12 @@ public class DataFactory {
                 return new ConvertibleBondRealTimeData();
             case STOCK_REALTIME:
                 return new StockRealTimeData();
+            case NATIONAL_DEBT_REALTIME:
+                return new NationlDebtRealTimeData();
             case STOCK_HISTORY:
                 return new StockHistoryData(code, startTime, endTime);
+            case CORPORATE_DEBT_REALTIME:
+                return new CorporateRealTimeData();
             default:
                 throw new EnumNotFoundException();
         }

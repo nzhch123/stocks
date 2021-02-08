@@ -20,6 +20,7 @@ import static com.invest.utils.CsvUtil.getCsvData;
  * @author zhichao.ni
  * 2021/2/5
  **/
+//获取股票历史信息
 public class StockHistoryData implements Data {
 
 

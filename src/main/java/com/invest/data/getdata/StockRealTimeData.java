@@ -9,7 +9,7 @@ import com.invest.utils.HttpRequest;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//获取股票实时信息
 public class StockRealTimeData implements Data<List<Stock>> {
     final String url="https://xueqiu.com/service/v5/stock/screener/quote/list?page=1&size=5000&order=desc&orderby=percent&order_by=percent&market=CN&type=sh_sz";
     @Override

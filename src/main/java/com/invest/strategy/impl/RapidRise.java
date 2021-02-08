@@ -3,7 +3,7 @@ package com.invest.strategy.impl;
 import com.invest.data.Data;
 import com.invest.data.DataEnum;
 import com.invest.data.DataFactory;
-import com.invest.pojo.Debt;
+import com.invest.pojo.ConvertibleBond;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -32,13 +32,13 @@ public class RapidRise extends AbstractStrategy{
         Boolean flag=false;
         //getData 可以是 "debt"  或者 "stock"  有新的数据源可以在工厂类里添加
         Data debtData= dataFactory.getData(DataEnum.CONVERTABLE_BOND_REALTIME);
-        List<Debt> debtList= (List<Debt>) debtData.getData();
-        for (Debt debt :
-                debtList) {
-            Float stockIncrease = StringtoFloat(debt.getSincreaseRt());
-            Float debtIncrease = StringtoFloat(debt.getIncreaseRt());
+        List<ConvertibleBond> convertibleBondList = (List<ConvertibleBond>) debtData.getData();
+        for (ConvertibleBond convertibleBond :
+                convertibleBondList) {
+            Float stockIncrease = StringtoFloat(convertibleBond.getSincreaseRt());
+            Float debtIncrease = StringtoFloat(convertibleBond.getIncreaseRt());
             if (stockIncrease > 5.0 && (stockIncrease - debtIncrease > 3.0)) {
-                this.setToSendTarget(debt.getBondNm());
+                this.setToSendTarget(convertibleBond.getBondNm());
                 flag=true;
             }
         }
