@@ -1,11 +1,12 @@
 package com.invest.strategy.impl;
 
-import com.invest.getdata.Data;
-import com.invest.getdata.DataRealTimeEnum;
-import com.invest.getdata.DataFactory;
+import com.invest.data.Data;
+import com.invest.data.DataEnum;
+import com.invest.data.DataFactory;
 import com.invest.pojo.Debt;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 //编写参照例子
@@ -27,10 +28,10 @@ public class RapidRise extends AbstractStrategy{
         this.inpireMailDays = 3;
     }
     @Override
-    public boolean analyzeStrategy() throws ParseException {
+    public boolean analyzeStrategy() throws ParseException, IOException {
         Boolean flag=false;
         //getData 可以是 "debt"  或者 "stock"  有新的数据源可以在工厂类里添加
-        Data debtData= dataFactory.getData(DataRealTimeEnum.DEBT_REALTIME);
+        Data debtData= dataFactory.getData(DataEnum.CONVERTABLE_BOND_REALTIME);
         List<Debt> debtList= (List<Debt>) debtData.getData();
         for (Debt debt :
                 debtList) {

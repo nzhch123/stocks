@@ -1,7 +1,6 @@
-package com.invest.getdata;
+package com.invest.data;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 public interface Data<T> {
     public T getData() throws IOException;

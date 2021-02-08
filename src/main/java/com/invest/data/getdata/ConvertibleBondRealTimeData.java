@@ -1,8 +1,9 @@
-package com.invest.getdata;
+package com.invest.data.getdata;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.invest.data.Data;
 import com.invest.pojo.Debt;
 import com.invest.utils.HttpRequest;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DebtRealTimeData implements Data<List<Debt>> {
+public class ConvertibleBondRealTimeData implements Data<List<Debt>> {
     private final String url="https://www.jisilu.cn/data/cbnew/cb_list/";
     @Override
     public List<Debt> getData() {

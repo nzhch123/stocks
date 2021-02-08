@@ -2,6 +2,8 @@ package com.invest.pojo;
 
 import com.opencsv.bean.CsvBindByName;
 
+import java.util.Date;
+
 /**
  * @author zhichao.ni
  * 2021/2/4

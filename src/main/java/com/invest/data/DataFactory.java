@@ -1,7 +1,9 @@
-package com.invest.getdata;
+package com.invest.data;
 
+import com.invest.data.getdata.ConvertibleBondRealTimeData;
+import com.invest.data.getdata.StockHistoryData;
+import com.invest.data.getdata.StockRealTimeData;
 import com.invest.exception.EnumNotFoundException;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -23,10 +25,10 @@ public class DataFactory {
         this.startTime = startTime;
         this.endTime = endTime;
     }
-    public Data getData(DataRealTimeEnum data) {
+    public Data getData(DataEnum data) {
         switch (data) {
-            case DEBT_REALTIME:
-                return new DebtRealTimeData();
+            case CONVERTABLE_BOND_REALTIME:
+                return new ConvertibleBondRealTimeData();
             case STOCK_REALTIME:
                 return new StockRealTimeData();
             case STOCK_HISTORY:

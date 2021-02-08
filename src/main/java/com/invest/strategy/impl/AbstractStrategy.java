@@ -5,6 +5,7 @@ import com.invest.strategy.MailedRecord;
 import com.invest.strategy.Strategy;
 import com.invest.utils.DateUtil;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashSet;
@@ -54,7 +55,7 @@ public abstract class AbstractStrategy implements Strategy {
     }
 
     @Override
-    public boolean setContext() throws ParseException {
+    public boolean setContext() throws ParseException, IOException {
         if (analyzeStrategy()) {
             toSendTarget=new HashSet<>();
             setMail();
