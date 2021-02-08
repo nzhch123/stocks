@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.invest.data.Data;
-import com.invest.pojo.Stock;
+import com.invest.pojo.datapojo.Stock;
 import com.invest.utils.HttpRequest;
 
 import java.util.ArrayList;

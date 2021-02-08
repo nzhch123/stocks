@@ -1,4 +1,4 @@
-import com.invest.pojo.StockHistory;
+import com.invest.pojo.datapojo.StockHistory;
 import com.invest.utils.HttpRequest;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;

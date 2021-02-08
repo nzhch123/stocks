@@ -1,7 +1,7 @@
 package com.invest.data.getdata;
 
 import com.invest.data.Data;
-import com.invest.pojo.StockHistory;
+import com.invest.pojo.datapojo.StockHistory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;

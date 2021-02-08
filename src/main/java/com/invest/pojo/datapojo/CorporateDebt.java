@@ -1,4 +1,4 @@
-package com.invest.pojo;
+package com.invest.pojo.datapojo;
 
 import java.util.Date;
 

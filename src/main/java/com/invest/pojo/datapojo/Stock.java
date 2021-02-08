@@ -1,4 +1,4 @@
-package com.invest.pojo;
+package com.invest.pojo.datapojo;
 import org.codehaus.jackson.annotate.JsonProperty;
 public class Stock {
     private String symbol;

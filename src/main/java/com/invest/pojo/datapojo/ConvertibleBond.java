@@ -1,4 +1,6 @@
-package com.invest.pojo;
+package com.invest.pojo.datapojo;
+
+import java.util.Date;
 
 public class ConvertibleBond {
     private String bondId;
@@ -15,13 +17,13 @@ public class ConvertibleBond {
 
     private String convertPriceValidFrom;
 
-    private String convertDt;
+    private Date convertDt;
 
-    private String maturityDt;
+    private Date maturityDt;
 
-    private String nextPutDt;
+    private Date nextPutDt;
 
-    private String putDt;
+    private Date putDt;
 
     private String putNotes;
 
@@ -57,7 +59,7 @@ public class ConvertibleBond {
 
     private int redeemRealDays;
 
-    private String redeemDt;
+    private Date redeemDt;
 
     private String redeemFlag;
 
@@ -71,9 +73,9 @@ public class ConvertibleBond {
 
     private String guarantor;
 
-    private String sscDt;
+    private Date sscDt;
 
-    private String escDt;
+    private Date escDt;
 
     private String scNotes;
 
@@ -237,28 +239,28 @@ public class ConvertibleBond {
     public String getConvertPriceValidFrom(){
         return this.convertPriceValidFrom;
     }
-    public void setConvertDt(String convertDt){
+    public void setConvertDt(Date convertDt){
         this.convertDt = convertDt;
     }
-    public String getConvertDt(){
+    public Date getConvertDt(){
         return this.convertDt;
     }
-    public void setMaturityDt(String maturityDt){
+    public void setMaturityDt(Date maturityDt){
         this.maturityDt = maturityDt;
     }
-    public String getMaturityDt(){
+    public Date getMaturityDt(){
         return this.maturityDt;
     }
-    public void setNextPutDt(String nextPutDt){
+    public void setNextPutDt(Date nextPutDt){
         this.nextPutDt = nextPutDt;
     }
-    public String getNextPutDt(){
+    public Date getNextPutDt(){
         return this.nextPutDt;
     }
-    public void setPutDt(String putDt){
+    public void setPutDt(Date putDt){
         this.putDt = putDt;
     }
-    public String getPutDt(){
+    public Date getPutDt(){
         return this.putDt;
     }
     public void setPutNotes(String putNotes){
@@ -363,10 +365,10 @@ public class ConvertibleBond {
     public int getRedeemRealDays(){
         return this.redeemRealDays;
     }
-    public void setRedeemDt(String redeemDt){
+    public void setRedeemDt(Date redeemDt){
         this.redeemDt = redeemDt;
     }
-    public String getRedeemDt(){
+    public Date getRedeemDt(){
         return this.redeemDt;
     }
     public void setRedeemFlag(String redeemFlag){
@@ -405,16 +407,16 @@ public class ConvertibleBond {
     public String getGuarantor(){
         return this.guarantor;
     }
-    public void setSscDt(String sscDt){
+    public void setSscDt(Date sscDt){
         this.sscDt = sscDt;
     }
-    public String getSscDt(){
+    public Date getSscDt(){
         return this.sscDt;
     }
-    public void setEscDt(String escDt){
+    public void setEscDt(Date escDt){
         this.escDt = escDt;
     }
-    public String getEscDt(){
+    public Date getEscDt(){
         return this.escDt;
     }
     public void setScNotes(String scNotes){

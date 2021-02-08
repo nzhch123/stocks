@@ -1,6 +1,6 @@
 package com.invest.utils;
 
-import com.invest.pojo.StockHistory;
+import com.invest.pojo.datapojo.StockHistory;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
