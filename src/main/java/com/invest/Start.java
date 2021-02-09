@@ -11,14 +11,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 @PropertySource({"classpath:config.properties"})
-public class Start implements CommandLineRunner, InitializingBean {
+public class Start implements CommandLineRunner {
 	private final String JOB_NAME = "invest_job";
     private final String TRIGGER_NAME = "invest_trigger";
     private final String JOB_GROUP_NAME = "invest_group";
     private final String TRIGGER_GROUP_NAME = "invest_trigger_group";
 	@Value("${CRON}")
 	private String cron;
-	private static String cronCopy;
+
 	private static final Logger log = LoggerFactory.getLogger(Start.class);
 
 	@Override
@@ -32,8 +32,4 @@ public class Start implements CommandLineRunner, InitializingBean {
 		}
 	}
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		cronCopy = cron;
-	}
 }
