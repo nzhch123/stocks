@@ -1,5 +1,8 @@
 package com.invest.utils;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -10,9 +13,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
+
 @Component
 @PropertySource({"classpath:config.properties"})
-public class MailUtil {
+public class MailUtil implements InitializingBean {
 //sendEmailAccount:发件人邮箱
 
 //receiveMailAccount:收件人邮箱 
@@ -24,23 +28,44 @@ public class MailUtil {
 
     //打开邮箱-->上方找到设置 -->账户 -->找到（POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务）-->开启pop3 -->获得授权码；
     @Value("${sendEmailAccount}")
+    private String sendEmailAccountCopy;
     private static String sendEmailAccount;
     @Value("${receiveMailAccount}")
+    public String receiveMailAccountCopy;
     public static String receiveMailAccount;
     @Value("${sendEmailPwd}")
-    public static String sendEmailPwd = "qlakvrgtpwkgbbeg";
-
-//发件人邮箱服务器地址
+    public String sendEmailPwdCopy;
+    public static String sendEmailPwd;
+    @Value("${emailNickName}")
+    public String sendEmailNickNameCopy;
+    public static String sendEmailNickName;
+    //发件人邮箱服务器地址
     @Value("${emailProtocolType}")
-    public static String emailProtocolType = "smtp";
+    public String emailProtocolTypeCopy;
+    public static String emailProtocolType;
     @Value("${sendEmailSMTPHost}")
-    public static String sendEmailSMTPHost = "smtp.qq.com";
+    public String sendEmailSMTPHostCopy;
+    public static String sendEmailSMTPHost;
     @Value("${smtpPort}")
+    public String smtpPortCopy = "465";
     public static String smtpPort = "465";
     @Value("${sslSocketFactory}")
-    public static String sslSocketFactory = "javax.net.ssl.SSLSocketFactory";
+    public String sslSocketFactoryCopy;
+    public static String sslSocketFactory;
 
     public static String prt;
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        sendEmailAccount = sendEmailAccountCopy;
+        receiveMailAccount = receiveMailAccountCopy;
+        sendEmailPwd = sendEmailPwdCopy;
+        sendEmailNickName = sendEmailNickNameCopy;
+        emailProtocolType = emailProtocolTypeCopy;
+        sendEmailSMTPHost = sendEmailSMTPHostCopy;
+        sslSocketFactory = sslSocketFactoryCopy;
+
+    }
 
 // 发件人邮箱的 SMTP 服务器地址, 必须准确, 不同邮件服务器地址不同, 一般格式为: smtp.xxx.com
 // 网易163邮箱的 SMTP 服务器地址为: smtp.163.com
@@ -48,7 +73,7 @@ public class MailUtil {
 // 收件人邮箱（替换为自己知道的有效邮箱）
 
 
-    public static void sendMessage(String subject,String content) throws Exception {
+    public static void sendMessage(String subject, String content) throws Exception {
 // 1. 创建参数配置, 用于连接邮件服务器的参数配置
         Properties props = new Properties(); // 参数配置
         props.setProperty("mail.transport.protocol", emailProtocolType); // 使用的协议（JavaMail规范要求）
@@ -68,7 +93,7 @@ public class MailUtil {
         session.setDebug(true); // 设置为debug模式, 可以查看详细的发送 log
 
 // 3. 创建一封邮件
-        MimeMessage message = createMimeMessage(session, sendEmailAccount, receiveMailAccount,subject,content);
+        MimeMessage message = createMimeMessage(session, sendEmailAccount, receiveMailAccount, subject, content);
 
 // 4. 根据 Session 获取邮件传输对象
         Transport transport = session.getTransport();
@@ -90,7 +115,7 @@ public class MailUtil {
         transport.connect(sendEmailAccount, sendEmailPwd);
 
 // 6. 发送邮件, 发到所有的收件地址, message.getAllRecipients() 获取到的是在创建邮件对象时添加的所有收件人, 抄送人, 密送人
-        transport.sendMessage(message,message.getAllRecipients());
+        transport.sendMessage(message, message.getAllRecipients());
 
 // 7. 关闭连接
         transport.close();
@@ -99,13 +124,13 @@ public class MailUtil {
     /**
      * 创建一封只包含文本的简单邮件
      *
-     * @param session 和服务器交互的会话
-     * @param sendMail 发件人邮箱
+     * @param session     和服务器交互的会话
+     * @param sendMail    发件人邮箱
      * @param receiveMail 收件人邮箱
      * @return
      * @throws Exception
      */
-    public static MimeMessage createMimeMessage(Session session, String sendMail, String receiveMail,String subject,String content) throws Exception {
+    public static MimeMessage createMimeMessage(Session session, String sendMail, String receiveMail, String subject, String content) throws Exception {
 // 1. 创建一封邮件
         MimeMessage message = new MimeMessage(session);
 
@@ -130,4 +155,6 @@ public class MailUtil {
 
         return message;
     }
+
+
 }
