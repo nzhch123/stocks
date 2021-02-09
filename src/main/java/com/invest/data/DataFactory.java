@@ -12,17 +12,28 @@ public class DataFactory {
     String code;
     Date startTime;
     Date endTime;
+
     public DataFactory() {
 
     }
+
     public DataFactory(String code, Date startTime, Date endTime) {
         if (startWithChar(code)) {
-            code = code.replaceAll("[a-zA-Z]","" );
+            code = code.replaceAll("[a-zA-Z]", "");
         }
         this.code = code;
         this.startTime = startTime;
         this.endTime = endTime;
     }
+
+    public DataFactory(String code, Date endTime) {
+        if (startWithChar(code)) {
+            code = code.replaceAll("[a-zA-Z]", "");
+        }
+        this.code = code;
+        this.endTime = endTime;
+    }
+
     public Data getData(DataEnum data) {
         switch (data) {
             case CONVERTABLE_BOND_REALTIME:
@@ -34,7 +45,11 @@ public class DataFactory {
             case CLODE_END_REALTIME:
                 return new CloseEndFundRealTimeData();
             case STOCK_HISTORY:
-                return new StockHistoryData(code, startTime, endTime);
+                if (startTime == null) {
+                    return new StockHistoryData(code, endTime);
+                } else {
+                    return new StockHistoryData(code, startTime, endTime);
+                }
             case CORPORATE_DEBT_REALTIME:
                 return new CorporateRealTimeData();
             default:
@@ -42,6 +57,7 @@ public class DataFactory {
         }
 
     }
+
     private static boolean startWithChar(String s) {
         if (s != null && s.length() > 0) {
             String start = s.trim().substring(0, 1);

@@ -32,7 +32,12 @@ public class StockHistoryData implements Data {
     private final String after = "&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;VOTURNOVER;VATURNOVER";
     private final String p1 = "&start=";
     private final String p2 = "&end=";
-
+    public StockHistoryData(String code, Date endTime) {
+        this.code = code;
+        SimpleDateFormat sdfs = new SimpleDateFormat("yyyyMMdd");
+        this.startTime = sdfs.format(startTime);
+        this.endTime = sdfs.format(endTime);
+    }
     public StockHistoryData(String code, Date startTime, Date endTime) {
         this.code = code;
         SimpleDateFormat sdfs = new SimpleDateFormat("yyyyMMdd");
