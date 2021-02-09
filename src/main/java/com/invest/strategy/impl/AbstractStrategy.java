@@ -1,9 +1,12 @@
 package com.invest.strategy.impl;
 
+import com.invest.exception.BaseException;
 import com.invest.pojo.Mail;
 import com.invest.strategy.MailedRecord;
 import com.invest.strategy.Strategy;
 import com.invest.utils.DateUtil;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -13,11 +16,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public abstract class AbstractStrategy implements Strategy {
     //要发送的邮件
     protected Mail mail;
     //要发送邮件内容的标的
-    protected Set<String> toSendTarget;
+    protected Set<String> toSendTarget = new HashSet<>();
     //相同标的的邮件间隔时间,防止之前发过邮件了，短时间重复发送
     protected Integer inpireMailDays;
 
@@ -32,10 +36,10 @@ public abstract class AbstractStrategy implements Strategy {
     }
 
     protected void setToSendTarget(String data) throws ParseException {
-        Map<String, Date> mapRecord=MailedRecord.classMap.get(this.getClass());
+        Map<String, Date> mapRecord = MailedRecord.classMap.get(this.getClass());
         if (mapRecord.containsKey(data)) {
             if (DateUtil.getDayDiffer(new Date(), mapRecord.get(data)) > inpireMailDays) {
-                mapRecord.put(data,new Date());
+                mapRecord.put(data, new Date());
                 this.toSendTarget.add(data);
             }
         }
@@ -57,13 +61,18 @@ public abstract class AbstractStrategy implements Strategy {
     @Override
     public boolean setContext() throws ParseException, IOException {
         if (analyzeStrategy()) {
-            toSendTarget=new HashSet<>();
+            toSendTarget = new HashSet<>();
             setMail();
             String toSendTarget = getToSendTarget().stream().collect(Collectors.joining("/n", "/n", "/n"));
-            String content = mail.getContent() + "/n" + toSendTarget;
-            mail.setContent(content);
-            return true;
-
+            if (toSendTarget != null) {
+                if (mail.getContent() == null) {
+                    throw new BaseException("没有设置邮件内容");
+                } else {
+                    String content = mail.getContent() + "/n" + toSendTarget;
+                    mail.setContent(content);
+                    return true;
+                }
+            }
         }
         return false;
     }

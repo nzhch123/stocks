@@ -1,5 +1,8 @@
 package com.invest.pojo;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Mail {
     private String subject;
     private String content;

@@ -6,6 +6,7 @@ public class Stock {
     private double netProfitCagr;
     private double ps;
     private int type;
+    //上涨百分比
     private double percent;
     @JsonProperty("has_follow")
     private boolean hasFollow;
@@ -15,13 +16,16 @@ public class Stock {
     private double pbTtm;
     @JsonProperty("float_shares")
     private int floatShares;
+    //当前价格
     private int current;
     private double amplitude;
     private String pcf;
+    //年初至今上涨百分比
     @JsonProperty("current_year_percent")
     private double currentYearPercent;
     @JsonProperty("float_market_capital")
     private int floatMarketCapital;
+    //总市值
     @JsonProperty("market_capital")
     private int marketCapital;
     @JsonProperty("dividend_yield")
@@ -36,6 +40,7 @@ public class Stock {
     @JsonProperty("income_cagr")
     private double incomeCagr;
     private double amount;
+    //上涨价格
     private double chg;
     @JsonProperty("issue_date_ts")
     private int issueDateTs;
@@ -46,6 +51,7 @@ public class Stock {
     private double volumeRatio;
     private double pb;
     private int followers;
+    //换手率
     @JsonProperty("turnover_rate")
     private double turnoverRate;
     @JsonProperty("first_percent")

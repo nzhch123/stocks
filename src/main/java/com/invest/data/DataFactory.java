@@ -1,7 +1,7 @@
 package com.invest.data;
 
 import com.invest.data.getdata.*;
-import com.invest.exception.EnumNotFoundException;
+import com.invest.exception.BaseException;
 
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -31,12 +31,14 @@ public class DataFactory {
                 return new StockRealTimeData();
             case NATIONAL_DEBT_REALTIME:
                 return new NationlDebtRealTimeData();
+            case CLODE_END_REALTIME:
+                return new CloseEndFundRealTimeData();
             case STOCK_HISTORY:
                 return new StockHistoryData(code, startTime, endTime);
             case CORPORATE_DEBT_REALTIME:
                 return new CorporateRealTimeData();
             default:
-                throw new EnumNotFoundException();
+                throw new BaseException("Enum not exist");
         }
 
     }
