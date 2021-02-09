@@ -24,22 +24,40 @@ import static invest.utils.CsvUtil.getCsvData;
 public class StockHistoryData implements Data {
 
 
-    String code;
-    String startTime;
-    String endTime;
+    String code="";
+    String startTime="";
+    String endTime="";
     // String url = "http://quotes.money.163.com/service/chddata.html?code=0000001&start=19901219&end=20150911&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;VOTURNOVER;VATURNOVER";
     private final String pre = "http://quotes.money.163.com/service/chddata.html?code=";
     private final String after = "&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;VOTURNOVER;VATURNOVER";
     private final String p1 = "&start=";
     private final String p2 = "&end=";
+
+    public StockHistoryData(String code) {
+        if (code.startsWith("6")) {
+            this.code = "0" + code;
+        } else {
+            this.code = "1" + code;
+        }
+
+    }
+
     public StockHistoryData(String code, Date endTime) {
-        this.code = code;
+        if (code.startsWith("6")) {
+            this.code = "0" + code;
+        } else {
+            this.code = "1" + code;
+        }
         SimpleDateFormat sdfs = new SimpleDateFormat("yyyyMMdd");
         this.startTime = sdfs.format(startTime);
         this.endTime = sdfs.format(endTime);
     }
     public StockHistoryData(String code, Date startTime, Date endTime) {
-        this.code = code;
+        if (code.startsWith("6")) {
+            this.code = "0" + code;
+        } else {
+            this.code = "1" + code;
+        }
         SimpleDateFormat sdfs = new SimpleDateFormat("yyyyMMdd");
         this.startTime = sdfs.format(startTime);
         this.endTime = sdfs.format(endTime);
