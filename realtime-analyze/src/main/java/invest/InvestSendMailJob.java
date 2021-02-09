@@ -1,11 +1,11 @@
 package invest;
 
+import invest.strategy.StrategyFactory;
 import invest.utils.SpringContextJobUtil;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.stereotype.Component;
-import invest.strategy.StrategyFactory;
 
 @Component
 public class InvestSendMailJob implements Job {
