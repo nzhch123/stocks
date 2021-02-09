@@ -1,6 +1,5 @@
 package invest.strategy.impl;
 
-import invest.data.Data;
 import invest.data.DataEnum;
 import invest.data.DataFactory;
 import invest.pojo.datapojo.ConvertibleBond;
@@ -30,9 +29,7 @@ public class RapidRise extends AbstractStrategy{
     @Override
     public boolean analyzeStrategy() throws ParseException, IOException {
         Boolean flag=false;
-        //getData 可以是 "debt"  或者 "stock"  有新的数据源可以在工厂类里添加
-        Data debtData= dataFactory.getData(DataEnum.CONVERTABLE_BOND_REALTIME);
-        List<ConvertibleBond> convertibleBondList = (List<ConvertibleBond>) debtData.getData();
+        List<ConvertibleBond> convertibleBondList = (List<ConvertibleBond>) dataFactory.getData(DataEnum.CONVERTABLE_BOND_REALTIME);
         for (ConvertibleBond convertibleBond :
                 convertibleBondList) {
             Float stockIncrease = StringtoFloat(convertibleBond.getSincreaseRt());
