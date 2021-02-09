@@ -19,25 +19,16 @@ public class DataFactory {
 
     }
     public DataFactory(String code) {
-        if (startWithChar(code)) {
-            code = code.replaceAll("[a-zA-Z]", "");
-        }
-        this.code = code;
+        this.code =convertCode(code) ;
     }
     public DataFactory(String code, Date startTime, Date endTime) {
-        if (startWithChar(code)) {
-            code = code.replaceAll("[a-zA-Z]", "");
-        }
-        this.code = code;
+        this.code = convertCode(code) ;
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
     public DataFactory(String code, Date endTime) {
-        if (startWithChar(code)) {
-            code = code.replaceAll("[a-zA-Z]", "");
-        }
-        this.code = code;
+        this.code = convertCode(code) ;
         this.endTime = endTime;
     }
 
@@ -71,14 +62,11 @@ public class DataFactory {
         }
 
     }
-
-    private static boolean startWithChar(String s) {
-        if (s != null && s.length() > 0) {
-            String start = s.trim().substring(0, 1);
-            Pattern pattern = Pattern.compile("^[A-Za-z]+$");
-            return pattern.matcher(start).matches();
-        } else {
-            return false;
-        }
+//去掉股票代码中可能包含的字母
+    private String convertCode(String code) {
+        String regEx = "[^0-9]";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(code);
+        return m.replaceAll("").trim();
     }
 }
