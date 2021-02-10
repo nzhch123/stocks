@@ -11,6 +11,11 @@ public class test {
     public void t() throws IOException {
         DataFactory dataFactory = new DataFactory("600519");
         List<StockHistory> stockHistories= (List<StockHistory>) dataFactory.getData(DataEnum.STOCK_HISTORY);
-        System.out.println(stockHistories);
+
+    }
+
+    public List<Double> getMoveEverage() {
+
+        return null;
     }
 }

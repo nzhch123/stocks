@@ -1,6 +1,5 @@
 package invest.strategy.impl;
 
-import invest.data.Data;
 import invest.data.DataEnum;
 import invest.data.DataFactory;
 import invest.pojo.datapojo.Stock;
@@ -25,10 +24,9 @@ public class TestStrategy extends AbstractStrategy{
     public boolean analyzeStrategy() throws ParseException, IOException {
         Boolean flag=false;
         //getData 可以是 "debt"  或者 "stock"  有新的数据源可以在工厂类里添加
-        Data debtData= dataFactory.getData(DataEnum.STOCK_REALTIME);
-        List<Stock> stockList = (List<Stock>) debtData.getData();
+        List<Stock> stocks= (List<Stock>) dataFactory.getData(DataEnum.STOCK_REALTIME);
         for (Stock stock :
-                stockList) {
+                stocks) {
             Double per=stock.getPercent();
             if (per > 0.1) {
                 this.setToSendTarget(stock.getName());

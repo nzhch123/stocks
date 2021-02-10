@@ -37,6 +37,7 @@ public abstract class AbstractStrategy implements Strategy {
 
     protected void setToSendTarget(String data) throws ParseException {
         Map<String, Date> mapRecord = MailedRecord.classMap.get(this.getClass());
+        this.setInpireMailDays();
         if (mapRecord.containsKey(data)) {
             if (DateUtil.getDayDiffer(new Date(), mapRecord.get(data)) > inpireMailDays) {
                 mapRecord.put(data, new Date());

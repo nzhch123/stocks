@@ -5,13 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import invest.strategy.impl.AbstractStrategy;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+@Component
 public class MailedRecord implements ApplicationContextAware {
     @Autowired
     @Qualifier("GetStrategy")
