@@ -1,5 +1,6 @@
 package invest.pojo.datapojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * @author toolscat.com
  * @verison $Id: CloseEndDebt v 0.1 2021-02-08 21:51:32
  */
-public class CloseEndFund {
+public class CloseEndFund implements Serializable {
 
     /**
      * <pre>

@@ -10,9 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static invest.utils.CsvUtil.getCsvData;
 
@@ -83,6 +81,7 @@ public class StockHistoryData implements Data {
             inputStream = new ByteArrayInputStream(result);
             Reader reader = null;
             List<StockHistory> list1 = getCsvData(inputStream, StockHistory.class);
+            Collections.reverse(list1);
             return list1;
         } finally {
             inputStream.close();

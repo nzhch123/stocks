@@ -1,5 +1,6 @@
 package invest.pojo.datapojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  * @verison $Id: CorporateDebt v 0.1 2021-02-08 21:22:10
  */
 //企业债
-public class CorporateDebt{
+public class CorporateDebt implements Serializable {
 
     /**
      * <pre>

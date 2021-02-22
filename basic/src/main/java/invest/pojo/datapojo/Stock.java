@@ -1,6 +1,9 @@
 package invest.pojo.datapojo;
 import org.codehaus.jackson.annotate.JsonProperty;
-public class Stock {
+
+import java.io.Serializable;
+
+public class Stock implements Serializable {
     private String symbol;
     @JsonProperty("net_profit_cagr")
     private double netProfitCagr;

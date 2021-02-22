@@ -1,8 +1,9 @@
 package invest.pojo.datapojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ConvertibleBond {
+public class ConvertibleBond implements Serializable {
     private String bondId;
 
     private String bondNm;

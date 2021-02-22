@@ -1,5 +1,6 @@
 package invest.pojo.datapojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * @author toolscat.com
  * @verison $Id: NationalBond v 0.1 2021-02-08 11:51:59
  */
-public class NationalBond{
+public class NationalBond implements Serializable {
 
     /**
      * <pre>
