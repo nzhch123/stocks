@@ -2,10 +2,7 @@ package invest.pojo.datapojo;
 
 import com.opencsv.bean.CsvBindByName;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -15,6 +12,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "stock_history")
 public class StockHistory implements Serializable {
+	private static final long serialVersionUID = 3541076934392205771L;
 	@Id
 	@CsvBindByName(column = "日期")
 	private String  date;
