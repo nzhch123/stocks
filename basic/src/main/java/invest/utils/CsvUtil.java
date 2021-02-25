@@ -1,6 +1,6 @@
 package invest.utils;
 
-import invest.pojo.datapojo.StockHistory;
+import invest.pojo.csv.StockHistoryCsv;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
@@ -16,7 +16,7 @@ import java.util.List;
  * 2021/2/5
  **/
 public class CsvUtil {
-	public static <T> List<T> getCsvData(InputStream in, Class<StockHistory> clazz) throws UnsupportedEncodingException {
+	public static <T> List<T> getCsvData(InputStream in, Class<StockHistoryCsv> clazz) throws UnsupportedEncodingException {
 
 
 		HeaderColumnNameMappingStrategy<T> strategy = new HeaderColumnNameMappingStrategy<>();

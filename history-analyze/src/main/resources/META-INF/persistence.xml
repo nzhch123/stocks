@@ -15,9 +15,9 @@
         <properties>
             <!-- 配置数据源信息 -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://39.107.143.8:3306/stock"/>
-            <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.password" value="816bb72ecd1c7a40"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://8.210.244.147:3306/stock?serverTimezone=Asia/Shanghai"/>
+            <property name="javax.persistence.jdbc.user" value="stock"/>
+            <property name="javax.persistence.jdbc.password" value="4hKEMskGWNawXnEm"/>
 
             <!-- 配置JPA实现产品的属性，即hibernate的属性 -->
             <property name="hibernate.format_sql" value="true"/><!-- 是否格式化sql语句 -->

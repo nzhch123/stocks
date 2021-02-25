@@ -17,33 +17,30 @@ public class Analyze {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         DataFactory getList = new DataFactory();
         List<Stock> stockList = (List<Stock>) getList.getData(DataEnum.STOCK_REALTIME);
-        EntityManager em = JPAUtil.getEntityManager();
+        EntityManager em=null;
         //3.获取事务对象，开启事务
-        EntityTransaction tx = em.getTransaction(); //获取事务对象
-        tx.begin();//开启事务
-
         for (Stock s :
                 stockList) {
             DataFactory stockHistory = new DataFactory(s.getSymbol());
             Object object=stockHistory.getData(DataEnum.STOCK_HISTORY);
-            List<StockHistory> stockHistoryList = null;
+            List<StockHistory> stockHistoryCsvList = null;
             if (object != null) {
-                stockHistoryList = (List<StockHistory>) object;
+                stockHistoryCsvList = (List<StockHistory>) object;
             }
-            if (stockHistoryList != null) {
-                for (StockHistory n:stockHistoryList
+            if (stockHistoryCsvList != null) {
+                for (StockHistory n: stockHistoryCsvList
                      ) {
+                    em = JPAUtil.getEntityManager();
+                    EntityTransaction tx = em.getTransaction(); //获取事务对象
+                    tx.begin();//开启事务
                     em.persist(n); //保存操作
+                    tx.commit();
                 }
             }
 
         }
-
-
         //保存
-
         //5.提交事务
-        tx.commit();
         //6.释放资源
         em.close();
 

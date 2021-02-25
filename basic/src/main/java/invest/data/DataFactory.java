@@ -6,8 +6,8 @@ import invest.exception.BaseException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import static invest.utils.CodeConverterUtil.convertCode;
 
 
 public class DataFactory {
@@ -63,11 +63,5 @@ public class DataFactory {
         }
 
     }
-//去掉股票代码中可能包含的字母
-    private String convertCode(String code) {
-        String regEx = "[^0-9]";
-        Pattern p = Pattern.compile(regEx);
-        Matcher m = p.matcher(code);
-        return m.replaceAll("").trim();
-    }
+
 }

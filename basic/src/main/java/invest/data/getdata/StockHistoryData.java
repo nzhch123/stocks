@@ -1,6 +1,7 @@
 package invest.data.getdata;
 
 import invest.data.Data;
+import invest.pojo.csv.StockHistoryCsv;
 import invest.pojo.datapojo.StockHistory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -8,10 +9,17 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import static invest.utils.CodeConverterUtil.convertCode;
 import static invest.utils.CsvUtil.getCsvData;
 
 /**
@@ -66,6 +74,7 @@ public class StockHistoryData implements Data {
         String url = pre + code + p1 + startTime + p2 + after;
         HttpHeaders headers = new HttpHeaders();
         InputStream inputStream = null;
+        List<StockHistory> list2 = new ArrayList<>();
         try {
             RestTemplate restTemplate = new RestTemplate();
             List list = new ArrayList<>();
@@ -77,14 +86,36 @@ public class StockHistoryData implements Data {
                     byte[].class);
 
             byte[] result = response.getBody();
-            StockHistory stockHistory = null;
+            StockHistoryCsv stockHistoryCsv = null;
             inputStream = new ByteArrayInputStream(result);
             Reader reader = null;
-            List<StockHistory> list1 = getCsvData(inputStream, StockHistory.class);
-            Collections.reverse(list1);
-            return list1;
+            List<StockHistoryCsv> list1 = getCsvData(inputStream, StockHistoryCsv.class);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            for (StockHistoryCsv s :
+                    list1) {
+                StockHistory stockHistory = new StockHistory();
+                stockHistory.setCode(convertCode(s.getCode()));
+                stockHistory.setAmount(new Float(s.getAmount()));
+                stockHistory.setClosingPrice(new Float(s.getClosingPrice()));
+                stockHistory.setDate(sdf.parse(s.getDate()));
+                stockHistory.setHighestPrice(new Float(s.getHighestPrice()));
+                stockHistory.setLowestPrice(new Float(s.getLowestPrice()));
+                stockHistory.setName(s.getName());
+                stockHistory.setOpeningPrice(new Float(s.getOpeningPrice()));
+                stockHistory.setRiseNumber(new Float(s.getRiseNumber()));
+                stockHistory.setRiseRange(new Float(s.getRiseRange()));
+                stockHistory.setVolume(new Float(s.getVolume()));
+                list2.add(stockHistory);
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
         } finally {
-            inputStream.close();
+            if (inputStream != null) {
+                inputStream.close();
+            }
+            return list2;
         }
     }
 }

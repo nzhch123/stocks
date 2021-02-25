@@ -1,6 +1,6 @@
 import invest.data.DataEnum;
 import invest.data.DataFactory;
-import invest.pojo.datapojo.StockHistory;
+import invest.pojo.csv.StockHistoryCsv;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -10,7 +10,7 @@ public class test {
     @Test
     public void t() throws IOException {
         DataFactory dataFactory = new DataFactory("600519");
-        List<StockHistory> stockHistories= (List<StockHistory>) dataFactory.getData(DataEnum.STOCK_HISTORY);
+        List<StockHistoryCsv> stockHistories= (List<StockHistoryCsv>) dataFactory.getData(DataEnum.STOCK_HISTORY);
 
     }
 
