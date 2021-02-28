@@ -26,16 +26,14 @@
         </dependency>
         <!--  hibernate 依赖 -->
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.4.1.Final</version>
+            <version>5.4.27.Final</version>
         </dependency>
-        <dependency>
-            <groupId>hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.4.0.GA</version>
-        </dependency>
+
 
         <!-- mysql 驱动 -->
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
