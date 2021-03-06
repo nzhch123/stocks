@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="invest.mapper.StockHistoryMapper">
+    <insert id="insertStockHistory" parameterType="invest.model.StockHistoryModel">
+        insert into stock_history(date, code, name, closing_price, highest_price, lowest_price, opening_price,
+                                  rise_number, rise_range, volume, amount)
+        values (#{date,jdbcType=TIMESTAMP}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+                #{closingPrice,jdbcType=FLOAT}, #{highestPrice,jdbcType=FLOAT}, #{lowestPrice,jdbcType=FLOAT},
+                #{openingPrice,jdbcType=FLOAT}, #{riseNumber,jdbcType=FLOAT}, #{riseRange,jdbcType=FLOAT},
+                #{volume,jdbcType=FLOAT}, #{amount,jdbcType=FLOAT})
+    </insert>
+
+</mapper>
